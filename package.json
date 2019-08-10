@@ -1,0 +1,88 @@
+{
+	"name": "draft-js-quick-list-plugin",
+	"version": "0.1.0",
+	"description": "Automatically create and exit Draft.js lists",
+	"keywords": [
+		"react",
+		"draft-js",
+		"draft-js-plugin",
+		"plugin",
+		"editor",
+		"list",
+		"auto-list"
+	],
+	"author": {
+		"name": "Samuel Meuli",
+		"email": "me@samuelmeuli.com",
+		"url": "https://samuelmeuli.com"
+	},
+	"repository": "github:samuelmeuli/draft-js-quick-list-plugin",
+	"license": "MIT",
+	"private": true,
+	"files": [
+		"./dist/"
+	],
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"format": "prettier --write",
+		"lint:js": "eslint --ext .js,.jsx --fix --max-warnings 0",
+		"lint:ts": "eslint --ext .ts,.tsx --fix --max-warnings 0",
+		"test": "yarn run test:jest && test:types",
+		"test:jest": "jest",
+		"test:types": "tsc --noEmit"
+	},
+	"dependencies": {},
+	"peerDependencies": {},
+	"devDependencies": {
+		"@samuelmeuli/eslint-config": "^2.0.1",
+		"@types/jest": "^24.0.17",
+		"@typescript-eslint/eslint-plugin": "^1.9.0",
+		"@typescript-eslint/parser": "^1.9.0",
+		"eslint": "^5.0.0",
+		"eslint-config-airbnb-base": "14.0.0",
+		"eslint-plugin-import": "^2.18.2",
+		"husky": "^3.0.3",
+		"jest": "^24.8.0",
+		"lint-staged": "^9.2.1",
+		"prettier": "^1.17.1",
+		"typescript": "^3.4.5"
+	},
+	"eslint": {
+		"root": true,
+		"extends": [
+			"@samuelmeuli/eslint-config/typescript",
+			"prettier",
+			"prettier/@typescript-eslint"
+		],
+		"env": {
+			"browser": true,
+			"node": true
+		}
+	},
+	"prettier": {
+		"printWidth": 100,
+		"trailingComma": "all"
+	},
+	"lint-staged": {
+		"*.{ts,tsx}": [
+			"yarn lint:ts",
+			"yarn format",
+			"git add"
+		],
+		"*.{js,jsx}": [
+			"yarn lint:js",
+			"yarn format",
+			"git add"
+		],
+		"*.{json,md,yml}": [
+			"yarn format",
+			"git add"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	}
+}
