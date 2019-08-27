@@ -23,41 +23,85 @@
 		"./dist/"
 	],
 	"main": "./dist/index.js",
+	"module": "./dist/index.es.js",
 	"types": "./dist/index.d.ts",
 	"scripts": {
+		"start": "npm-run-all build:ts --parallel start:*",
+		"start:ts": "rollup --config --sourcemap --watch",
+		"start:serve": "serve ./demo/public/ --listen 3000",
+		"build": "run-s build:*",
+		"build:clean": "rm -rf ./dist/",
+		"build:ts": "rollup --config",
 		"format": "prettier --write",
 		"lint:js": "eslint --ext .js,.jsx --fix --max-warnings 0",
 		"lint:ts": "eslint --ext .ts,.tsx --fix --max-warnings 0",
-		"test": "yarn run test:jest && test:types",
+		"test": "run-s test:*",
 		"test:jest": "jest",
-		"test:types": "tsc --noEmit"
+		"test:ts": "tsc --noEmit"
 	},
 	"dependencies": {},
-	"peerDependencies": {},
+	"peerDependencies": {
+		"@types/draft-js": "^0.11.0",
+		"@types/react": "^16.0.0",
+		"draft-js": "^0.11.0",
+		"draft-js-plugins-editor": "^3.0.0",
+		"react": "^16.0.0"
+	},
 	"devDependencies": {
-		"@samuelmeuli/eslint-config": "^2.0.1",
-		"@types/jest": "^24.0.17",
-		"@typescript-eslint/eslint-plugin": "^1.9.0",
-		"@typescript-eslint/parser": "^1.9.0",
-		"eslint": "^5.0.0",
-		"eslint-config-airbnb-base": "14.0.0",
+		"@samuelmeuli/eslint-config": "^3.0.2",
+		"@samuelmeuli/tsconfig": "^0.1.1",
+		"@types/draft-js": "^0.10.35",
+		"@types/jest": "^24.0.18",
+		"@types/react": "^16.9.2",
+		"@types/react-dom": "^16.9.0",
+		"@typescript-eslint/eslint-plugin": "^2.0.0",
+		"@typescript-eslint/parser": "^2.0.0",
+		"draft-js": "^0.11.0",
+		"draft-js-plugins-editor": "^3.0.0",
+		"eslint": "6.1.0",
+		"eslint-config-airbnb": "18.0.1",
+		"eslint-config-prettier": "^6.1.0",
 		"eslint-plugin-import": "^2.18.2",
-		"husky": "^3.0.3",
-		"jest": "^24.8.0",
-		"lint-staged": "^9.2.1",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-react": "^7.14.3",
+		"eslint-plugin-react-hooks": "^1.7.0",
+		"eslint-plugin-simple-import-sort": "^4.0.0",
+		"husky": "^3.0.4",
+		"jest": "^24.9.0",
+		"lint-staged": "^9.2.4",
+		"npm-run-all": "^4.1.5",
 		"prettier": "^1.17.1",
+		"react": "^16.9.0",
+		"react-dom": "^16.9.0",
+		"rollup": "^1.20.2",
+		"rollup-plugin-commonjs": "^10.0.2",
+		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-replace": "^2.2.0",
+		"rollup-plugin-typescript2": "^0.23.0",
+		"serve": "^11.1.0",
 		"typescript": "^3.4.5"
 	},
-	"eslint": {
+	"eslintConfig": {
 		"root": true,
 		"extends": [
-			"@samuelmeuli/eslint-config/typescript",
+			"@samuelmeuli/eslint-config/react-typescript",
 			"prettier",
 			"prettier/@typescript-eslint"
 		],
 		"env": {
 			"browser": true,
 			"node": true
+		},
+		"rules": {
+			"import/no-extraneous-dependencies": [
+				"error",
+				{
+					"devDependencies": [
+						"./demo/**/*.*",
+						"./rollup.config.js"
+					]
+				}
+			]
 		}
 	},
 	"prettier": {
@@ -82,7 +126,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "lint-staged"
+			"pre-commit": "yarn test && lint-staged"
 		}
 	}
 }

@@ -1,0 +1,6 @@
+{
+	"extends": "@samuelmeuli/tsconfig",
+	"compilerOptions": {
+		"module": "ES6"
+	}
+}
