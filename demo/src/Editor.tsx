@@ -1,3 +1,5 @@
+import "draft-js/dist/Draft.css";
+
 import { DraftEditorCommand, DraftHandleValue, EditorState, RichUtils } from "draft-js";
 import PluginEditor from "draft-js-plugins-editor";
 import React, { Component, ReactElement } from "react";

@@ -1,5 +1,6 @@
 import commonjs from "rollup-plugin-commonjs";
 import resolve from "rollup-plugin-node-resolve";
+import postcss from "rollup-plugin-postcss";
 import replace from "rollup-plugin-replace";
 import typescript from "rollup-plugin-typescript2";
 
@@ -72,6 +73,7 @@ export default [
 			replace({
 				"process.env.NODE_ENV": JSON.stringify("production"),
 			}),
+			postcss(),
 		],
 	},
 ];
