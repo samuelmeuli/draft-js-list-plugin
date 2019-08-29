@@ -3,4 +3,4 @@ import ReactDOM from "react-dom";
 
 import Editor from "./Editor";
 
-ReactDOM.render(<Editor />, document.getElementById("root"));
+ReactDOM.render(<Editor />, document.getElementById("editor"));

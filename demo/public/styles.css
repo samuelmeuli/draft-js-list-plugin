@@ -1,0 +1,28 @@
+/* stylelint-disable declaration-no-important, selector-class-pattern, selector-max-id */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	max-width: 38rem;
+	margin: auto;
+	padding: 4rem 2rem;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica", "Arial",
+		sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	line-height: 1.7;
+	background: #eeeeee;
+}
+
+#editor {
+	height: 250px;
+	background: #ffffff;
+}
+
+.DraftEditor-root {
+	height: 100% !important;
+	margin-top: 4rem;
+	padding: 1rem;
+	overflow-y: auto;
+	border-radius: 5px;
+}

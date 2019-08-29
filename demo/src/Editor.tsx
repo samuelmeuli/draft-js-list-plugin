@@ -38,6 +38,7 @@ export default class Editor extends Component<{}, State> {
 				editorState={editorState}
 				handleKeyCommand={this.handleKeyCommand}
 				onChange={this.onChange}
+				placeholder="Start typing…"
 				plugins={plugins}
 			/>
 		);
