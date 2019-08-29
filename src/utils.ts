@@ -2,9 +2,6 @@ import { EditorState, RichUtils } from "draft-js";
 
 import { BlockTypes } from "./types";
 
-const OL_REGEX = /\d\./;
-const UL_CHARS = ["-", "–", "*"];
-
 /**
  * Return the text in the block where the cursor is currently placed
  */
@@ -24,15 +21,15 @@ export function getCurrentParagraph(editorState: EditorState): string {
 /**
  * Determine whether the start of the paragraph indicates that it is part of an ordered list
  */
-export function shouldEnterOl(line: string): boolean {
-	return OL_REGEX.test(line);
+export function shouldEnterOl(line: string, olRegex: RegExp): boolean {
+	return olRegex.test(line);
 }
 
 /**
  * Determine whether the start of the paragraph indicates that it is part of an unordered list
  */
-export function shouldEnterUl(line: string): boolean {
-	return UL_CHARS.includes(line[0]);
+export function shouldEnterUl(line: string, ulChars: string[]): boolean {
+	return ulChars.includes(line[0]);
 }
 
 /**
