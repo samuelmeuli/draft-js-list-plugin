@@ -10,7 +10,6 @@ const GLOBALS = {
 	"draft-js": "draftJs",
 };
 const OUTPUT_NAME = "createListPlugin";
-const TS_CACHE_ROOT = "./node_modules/.cache/rollup-plugin-typescript2/";
 
 export default [
 	// Library
@@ -34,7 +33,6 @@ export default [
 		external: Object.keys(GLOBALS),
 		plugins: [
 			typescript({
-				cacheRoot: TS_CACHE_ROOT,
 				tsconfigOverride: {
 					compilerOptions: {
 						declaration: true,
@@ -69,9 +67,7 @@ export default [
 					],
 				},
 			}),
-			typescript({
-				cacheRoot: TS_CACHE_ROOT,
-			}),
+			typescript(),
 			replace({
 				"process.env.NODE_ENV": JSON.stringify("production"),
 			}),
