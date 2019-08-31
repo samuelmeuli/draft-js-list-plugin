@@ -18,6 +18,7 @@
 		"url": "https://samuelmeuli.com"
 	},
 	"repository": "github:samuelmeuli/draft-js-list-plugin",
+	"homepage": "https://draft-js-list-plugin.samuelmeuli.com",
 	"license": "MIT",
 	"files": [
 		"./dist/"
