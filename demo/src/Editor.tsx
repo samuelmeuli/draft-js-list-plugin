@@ -33,12 +33,19 @@ export default class Editor extends Component<{}, State> {
 
 	render = (): ReactElement => {
 		const { editorState } = this.state;
+
+		// Determine whether placeholder should be displayed (to avoid overlap with lists)
+		const blockType = RichUtils.getCurrentBlockType(editorState);
+		const isOl = blockType === "ordered-list-item";
+		const isUl = blockType === "unordered-list-item";
+		const placeholderIsVisible = !isOl && !isUl;
+
 		return (
 			<PluginEditor
 				editorState={editorState}
 				handleKeyCommand={this.handleKeyCommand}
 				onChange={this.onChange}
-				placeholder="Start typing…"
+				placeholder={placeholderIsVisible ? "Start typing…" : ""}
 				plugins={plugins}
 			/>
 		);
