@@ -1,7 +1,7 @@
 {
 	"name": "draft-js-list-plugin",
 	"version": "0.1.0",
-	"description": "Automatically create and exit Draft.js lists",
+	"description": "Better lists for Draft.js",
 	"keywords": [
 		"react",
 		"draft-js",
@@ -9,7 +9,8 @@
 		"plugin",
 		"editor",
 		"list",
-		"auto-list"
+		"auto-list",
+		"nested-list"
 	],
 	"author": {
 		"name": "Samuel Meuli",
@@ -18,7 +19,6 @@
 	},
 	"repository": "github:samuelmeuli/draft-js-list-plugin",
 	"license": "MIT",
-	"private": true,
 	"files": [
 		"./dist/"
 	],
