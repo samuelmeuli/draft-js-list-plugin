@@ -37,11 +37,14 @@ const createQuickListPlugin = (config?: Partial<QuickListConfig>): EditorPlugin 
 					// TODO: Remove everything up to space
 					const updatedState = RichUtils.toggleBlockType(editorState, BlockTypes.UL);
 					setEditorState(updatedState);
-				} else if (shouldEnterOl(line, olRegex)) {
+					return "handled";
+				}
+				if (shouldEnterOl(line, olRegex)) {
 					// Enter ordered list
 					// TODO: Remove everything up to space
 					const updatedState = RichUtils.toggleBlockType(editorState, BlockTypes.OL);
 					setEditorState(updatedState);
+					return "handled";
 				}
 			}
 			return "not-handled";
@@ -61,6 +64,7 @@ const createQuickListPlugin = (config?: Partial<QuickListConfig>): EditorPlugin 
 				// TODO: Consider decrementing indentation by 1 instead
 				const updatedState = RichUtils.toggleBlockType(editorState, BlockTypes.TEXT);
 				setEditorState(updatedState);
+				return "handled";
 			}
 			return "not-handled";
 		},
@@ -81,6 +85,7 @@ const createQuickListPlugin = (config?: Partial<QuickListConfig>): EditorPlugin 
 					// TODO: Consider decrementing indentation by 1 instead
 					const updatedState = RichUtils.toggleBlockType(editorState, BlockTypes.TEXT);
 					setEditorState(updatedState);
+					return "handled";
 				}
 			}
 			return "not-handled";
