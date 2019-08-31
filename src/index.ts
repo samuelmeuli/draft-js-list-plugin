@@ -1,9 +1,9 @@
-import { DraftEditorCommand, DraftHandleValue, EditorState, RichUtils } from "draft-js";
+import { DraftHandleValue, EditorState, RichUtils } from "draft-js";
 import { EditorPlugin, PluginFunctions } from "draft-js-plugins-editor";
 import { KeyboardEvent } from "react";
 
 import { BlockTypes, CONFIG_DEFAULTS, ListPluginConfig } from "./types";
-import { getCurrentParagraph, shouldEnterOl, shouldEnterUl, shouldExitList } from "./utils";
+import { shouldEnterOl, shouldEnterUl, startList } from "./utils";
 
 const createListPlugin = (config?: Partial<ListPluginConfig>): EditorPlugin => {
 	const { allowNestedLists, maxDepth, olRegex, ulChars } = {
@@ -33,62 +33,54 @@ const createListPlugin = (config?: Partial<ListPluginConfig>): EditorPlugin => {
 		): DraftHandleValue {
 			// On space press: Start list if necessary
 			if (chars === " ") {
-				const line = `${getCurrentParagraph(editorState)} `;
-				// TODO: Exit if not the first space
-				if (shouldEnterUl(line, ulChars)) {
-					// Enter unordered list
-					// TODO: Remove everything up to space
-					const updatedState = RichUtils.toggleBlockType(editorState, BlockTypes.UL);
-					setEditorState(updatedState);
-					return "handled";
-				}
-				if (shouldEnterOl(line, olRegex)) {
-					// Enter ordered list
-					// TODO: Remove everything up to space
-					const updatedState = RichUtils.toggleBlockType(editorState, BlockTypes.OL);
-					setEditorState(updatedState);
-					return "handled";
-				}
-			}
-			return "not-handled";
-		},
+				// Get editor content
+				const content = editorState.getCurrentContent();
 
-		/**
-		 * Handle enter key presses
-		 */
-		handleReturn(
-			_evt: KeyboardEvent,
-			editorState: EditorState,
-			{ setEditorState }: PluginFunctions,
-		): DraftHandleValue {
-			// On enter press: Exit list if necessary
-			if (shouldExitList(editorState)) {
-				// Exit list
-				// TODO: Consider decrementing indentation by 1 instead
-				const updatedState = RichUtils.toggleBlockType(editorState, BlockTypes.TEXT);
-				setEditorState(updatedState);
-				return "handled";
-			}
-			return "not-handled";
-		},
+				// Get currently selected block
+				const selection = editorState.getSelection();
+				const blockKey = selection.getStartKey();
+				const block = content.getBlockForKey(blockKey);
 
-		/**
-		 * Handle backspace key presses
-		 */
-		handleKeyCommand(
-			command: DraftEditorCommand,
-			editorState: EditorState,
-			_eventTimeStamp: number,
-			{ setEditorState }: PluginFunctions,
-		): DraftHandleValue {
-			// On backspace press: Exit list if necessary
-			if (command === "backspace") {
-				if (shouldExitList(editorState)) {
-					// Exit list
-					// TODO: Consider decrementing indentation by 1 instead
-					const updatedState = RichUtils.toggleBlockType(editorState, BlockTypes.TEXT);
-					setEditorState(updatedState);
-					return "handled";
+				// Exit if already in a list
+				if (block.getType() !== BlockTypes.TEXT) {
+					return "not-handled";
+				}
+
+				// Get current position of cursor in block
+				const cursorPos = selection.getStartOffset();
+
+				// Get block text
+				const text = `${block.getText()} `;
+
+				// Calculate position of first space character in block
+				const firstSpacePos = text.indexOf(" ");
+
+				// If the typed space is the first one in the block: Check if list needs to be inserted
+				if (cursorPos === firstSpacePos) {
+					if (shouldEnterUl(text, ulChars)) {
+						// Start unordered list
+						const updatedState = startList(
+							editorState,
+							content,
+							blockKey,
+							firstSpacePos,
+							BlockTypes.UL,
+						);
+						setEditorState(updatedState);
+						return "handled";
+					}
+					if (shouldEnterOl(text, olRegex)) {
+						// Start ordered list
+						const updatedState = startList(
+							editorState,
+							content,
+							blockKey,
+							firstSpacePos,
+							BlockTypes.OL,
+						);
+						setEditorState(updatedState);
+						return "handled";
+					}
 				}
 			}
 			return "not-handled";

@@ -63,7 +63,9 @@ export default [
 					"./node_modules/draft-js/lib/Draft.js": [
 						"EditorState",
 						"getDefaultKeyBinding",
+						"Modifier",
 						"RichUtils",
+						"SelectionState",
 					],
 				},
 			}),
