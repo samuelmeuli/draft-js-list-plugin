@@ -1,6 +1,6 @@
 {
 	"name": "draft-js-list-plugin",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Better lists for Draft.js",
 	"keywords": [
 		"react",
