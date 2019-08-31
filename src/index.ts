@@ -6,7 +6,10 @@ import { BlockTypes, CONFIG_DEFAULTS, QuickListConfig } from "./types";
 import { getCurrentParagraph, shouldEnterOl, shouldEnterUl, shouldExitList } from "./utils";
 
 const createQuickListPlugin = (config?: Partial<QuickListConfig>): EditorPlugin => {
-	const { allowNestedLists, maxDepth, olRegex, ulChars } = { ...CONFIG_DEFAULTS, ...config };
+	const { allowNestedLists, maxDepth, olRegex, ulChars } = {
+		...CONFIG_DEFAULTS,
+		...config,
+	};
 
 	// Parameter validation
 	if (maxDepth < 1) {
@@ -92,8 +95,16 @@ const createQuickListPlugin = (config?: Partial<QuickListConfig>): EditorPlugin 
 		},
 	};
 
+	// Handle tab and shift+tab presses if nested lists are allowed
 	if (allowNestedLists) {
-		// TODO: onTab
+		plugin.onTab = (
+			e: KeyboardEvent,
+			{ getEditorState, setEditorState }: PluginFunctions,
+		): void => {
+			const editorState = getEditorState();
+			const updatedState = RichUtils.onTab(e, editorState, maxDepth);
+			setEditorState(updatedState);
+		};
 	}
 
 	return plugin;
