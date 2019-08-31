@@ -4,10 +4,10 @@ import { DraftEditorCommand, DraftHandleValue, EditorState, RichUtils } from "dr
 import PluginEditor from "draft-js-plugins-editor";
 import React, { Component, ReactElement } from "react";
 
-import createQuickListPlugin from "../../src/index";
+import createListPlugin from "../../src/index";
 
-const quickListPlugin = createQuickListPlugin();
-const plugins = [quickListPlugin];
+const listPlugin = createListPlugin();
+const plugins = [listPlugin];
 
 interface State {
 	editorState: EditorState;

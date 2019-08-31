@@ -1,5 +1,5 @@
 {
-	"name": "draft-js-quick-list-plugin",
+	"name": "draft-js-list-plugin",
 	"version": "0.1.0",
 	"description": "Automatically create and exit Draft.js lists",
 	"keywords": [
@@ -16,7 +16,7 @@
 		"email": "me@samuelmeuli.com",
 		"url": "https://samuelmeuli.com"
 	},
-	"repository": "github:samuelmeuli/draft-js-quick-list-plugin",
+	"repository": "github:samuelmeuli/draft-js-list-plugin",
 	"license": "MIT",
 	"private": true,
 	"files": [

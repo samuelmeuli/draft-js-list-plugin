@@ -2,10 +2,10 @@ import { DraftEditorCommand, DraftHandleValue, EditorState, RichUtils } from "dr
 import { EditorPlugin, PluginFunctions } from "draft-js-plugins-editor";
 import { KeyboardEvent } from "react";
 
-import { BlockTypes, CONFIG_DEFAULTS, QuickListConfig } from "./types";
+import { BlockTypes, CONFIG_DEFAULTS, ListPluginConfig } from "./types";
 import { getCurrentParagraph, shouldEnterOl, shouldEnterUl, shouldExitList } from "./utils";
 
-const createQuickListPlugin = (config?: Partial<QuickListConfig>): EditorPlugin => {
+const createListPlugin = (config?: Partial<ListPluginConfig>): EditorPlugin => {
 	const { allowNestedLists, maxDepth, olRegex, ulChars } = {
 		...CONFIG_DEFAULTS,
 		...config,
@@ -110,4 +110,4 @@ const createQuickListPlugin = (config?: Partial<QuickListConfig>): EditorPlugin 
 	return plugin;
 };
 
-export default createQuickListPlugin;
+export default createListPlugin;

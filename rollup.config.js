@@ -9,7 +9,7 @@ import pkg from "./package.json";
 const GLOBALS = {
 	"draft-js": "draftJs",
 };
-const OUTPUT_NAME = "createQuickListPlugin";
+const OUTPUT_NAME = "createListPlugin";
 const TS_CACHE_ROOT = "./node_modules/.cache/rollup-plugin-typescript2/";
 
 export default [

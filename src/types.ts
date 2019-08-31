@@ -1,13 +1,13 @@
 import { DraftBlockType } from "draft-js";
 
-export interface QuickListConfig {
+export interface ListPluginConfig {
 	allowNestedLists: boolean;
 	maxDepth: number;
 	olRegex: RegExp;
 	ulChars: string[];
 }
 
-export const CONFIG_DEFAULTS: QuickListConfig = {
+export const CONFIG_DEFAULTS: ListPluginConfig = {
 	allowNestedLists: true,
 	maxDepth: 4,
 	olRegex: /\d\./,
