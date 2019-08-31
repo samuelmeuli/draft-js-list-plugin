@@ -2,8 +2,8 @@ import { DraftHandleValue, EditorState, RichUtils } from "draft-js";
 import { EditorPlugin, PluginFunctions } from "draft-js-plugins-editor";
 import { KeyboardEvent } from "react";
 
+import { shouldEnterOl, shouldEnterUl, startList } from "./lists";
 import { BlockTypes, CONFIG_DEFAULTS, ListPluginConfig } from "./types";
-import { shouldEnterOl, shouldEnterUl, startList } from "./utils";
 
 const createListPlugin = (config?: Partial<ListPluginConfig>): EditorPlugin => {
 	const { allowNestedLists, maxDepth, olRegex, ulChars } = {
