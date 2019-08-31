@@ -19,10 +19,17 @@ body {
 	background: #ffffff;
 }
 
+noscript,
+.DraftEditor-root {
+	padding: 1rem;
+}
+
+noscript {
+	display: block;
+}
+
 .DraftEditor-root {
 	height: 100% !important;
-	margin-top: 4rem;
-	padding: 1rem;
 	overflow-y: auto;
 	border-radius: 5px;
 }
