@@ -11,6 +11,10 @@ const GLOBALS = {
 };
 const OUTPUT_NAME = "createListPlugin";
 
+if (!process.env.NODE_ENV) {
+	throw Error("NODE_ENV environment variable is not defined");
+}
+
 export default [
 	// Library
 	{
@@ -68,9 +72,7 @@ export default [
 				},
 			}),
 			typescript(),
-			replace({
-				"process.env.NODE_ENV": JSON.stringify("production"),
-			}),
+			replace({ "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV) }),
 			postcss(),
 		],
 	},
