@@ -1,4 +1,10 @@
-import { DraftHandleValue, EditorState, RichUtils } from "draft-js";
+import {
+	DraftEditorCommand,
+	DraftHandleValue,
+	EditorState,
+	getDefaultKeyBinding,
+	RichUtils,
+} from "draft-js";
 import { EditorPlugin, PluginFunctions } from "draft-js-plugins-editor";
 import { KeyboardEvent } from "react";
 
@@ -89,13 +95,16 @@ const createListPlugin = (config?: Partial<ListPluginConfig>): EditorPlugin => {
 
 	// Handle tab and shift+tab presses if nested lists are allowed
 	if (allowNestedLists) {
-		plugin.onTab = (
+		plugin.keyBindingFn = (
 			e: KeyboardEvent,
 			{ getEditorState, setEditorState }: PluginFunctions,
-		): void => {
-			const editorState = getEditorState();
-			const updatedState = RichUtils.onTab(e, editorState, maxDepth);
-			setEditorState(updatedState);
+		): DraftEditorCommand | null => {
+			if (e.key === "Tab") {
+				const editorState = getEditorState();
+				const updatedState = RichUtils.onTab(e, editorState, maxDepth);
+				setEditorState(updatedState);
+			}
+			return getDefaultKeyBinding(e);
 		};
 	}
 
