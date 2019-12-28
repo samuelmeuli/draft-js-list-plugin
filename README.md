@@ -9,6 +9,8 @@
 
 → **[Demo](https://draft-js-list-plugin.samuelmeuli.com)**
 
+<img src="./.github/demo.gif" alt="Plugin demo" width="70%">
+
 ## Usage
 
 This plugin requires you to have [`draft-js-plugins`](https://github.com/draft-js-plugins/draft-js-plugins) set up in your project.
@@ -31,19 +33,19 @@ const listPlugin = createListPlugin();
 const plugins = [listPlugin];
 
 export default class Editor extends Component {
-  // ...
+	// ...
 
-  render() {
-    const { editorState } = this.state;
+	render() {
+		const { editorState } = this.state;
 
-    return (
-      <PluginEditor
-        // ...
-        editorState={editorState}
-        plugins={plugins}
-      />
-    );
-  }
+		return (
+			<PluginEditor
+				// ...
+				editorState={editorState}
+				plugins={plugins}
+			/>
+		);
+	}
 }
 ```
 
@@ -55,7 +57,7 @@ You can pass options to the plugin the following way:
 
 ```jsx
 const listPlugin = createListPlugin({
-  // Your options
+	// Your options
 });
 ```
 
