@@ -27,7 +27,9 @@ Import the list plugin in your Editor component:
 import React, { Component } from "react";
 import PluginEditor from "draft-js-plugins-editor";
 import createListPlugin from "draft-js-list-plugin";
-// ...
+
+// Make sure to import `Draft.css` somewhere
+import "draft-js/dist/Draft.css";
 
 const listPlugin = createListPlugin();
 const plugins = [listPlugin];
