@@ -61,7 +61,7 @@ export default [
 			commonjs({
 				include: ["node_modules/**"],
 				namedExports: {
-					"./node_modules/react/index.js": ["Component"],
+					"./node_modules/react/index.js": ["useState"],
 					"./node_modules/draft-js/lib/Draft.js": [
 						"EditorState",
 						"getDefaultKeyBinding",
